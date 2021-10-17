@@ -18,7 +18,7 @@ namespace RomanNumberConverter
                 case "Q":
                     return false;
                 default:
-                    int num = cnv.GetArabicNumber(res);
+                    int num = cnv.GetArabicNumber(res.ToUpper());
                     if(num > 0)
                     {
                         Console.WriteLine("Antamasi roomalaisen numeron int vastine on:");
