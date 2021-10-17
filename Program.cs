@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace RomanNumberConverter
 {
@@ -6,16 +7,25 @@ namespace RomanNumberConverter
     {
         static void Main(string[] args)
         {
-            
 
-            RomanConverter cnv = new RomanConverter();
+            Console.WriteLine("RomanConverter 1.0 by Jari Poutanen");
+            Thread.Sleep(1000);
 
-            Console.WriteLine("Syötä roomalainen numero muunnosta varten:");
-            string romanNumber = Console.ReadLine();
-            Console.WriteLine("Antamasi roomalaisen numeron int vastine on:");
-            Console.WriteLine(cnv.GetArabicNumber(romanNumber));
-            Console.WriteLine("Paina näppäintä lopettaaksesi ohjelman");
-            Console.ReadKey();
+            bool run = true;
+
+            while(run)
+            {
+
+                RomanNumberService srv = new RomanNumberService();
+                run = srv.RunService(); 
+            }
+
+
+
+            Thread.Sleep(1000);
+            Console.WriteLine("Mukavaa päivänjatkoa!");
+
+
 
         }
     }

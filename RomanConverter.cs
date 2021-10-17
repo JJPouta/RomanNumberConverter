@@ -8,6 +8,7 @@ namespace RomanNumberConverter
     public class RomanConverter
     {
         private static readonly Dictionary<string, int> romanLogic = InitLogic();
+        private List<int> numbers;
         private int total = 0;
 
         private static Dictionary<string, int> InitLogic()
@@ -27,8 +28,21 @@ namespace RomanNumberConverter
 
         }
 
-        private void Xlogic(int currNumber,int prevNumber)
+        private void Xlogic()
         {
+            int currNumber = numbers.Last();
+            int prevNumber = 0;
+            if (numbers.Count > 1)
+            {
+                prevNumber = numbers[numbers.Count - 2];
+            }
+            
+            // Tarkastetaan formaatti IIX ei mahdollinen
+            if(numbers.Count > 3)
+            {
+
+
+            }
 
             if(currNumber == prevNumber)
             {
@@ -52,20 +66,12 @@ namespace RomanNumberConverter
 
         public int GetArabicNumber(string numberInput)
         {
-            
-            int currNumber = 0;
-            int prevNumber = 0;
-            int i = 0;
-
-            int strLen = numberInput.Length;
-
+            numbers = new List<int>();
             foreach (char c in numberInput)
             {
-                currNumber = ConvertNumber(Char.ToString(c));
-
-                 Xlogic(currNumber, prevNumber);
-                prevNumber = currNumber;
-                i++;
+                int currNumber = ConvertNumber(Char.ToString(c));
+                numbers.Add(currNumber);
+                Xlogic();
             };
 
             return total;
