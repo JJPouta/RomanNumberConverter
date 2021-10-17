@@ -6,17 +6,21 @@ namespace RomanNumberConverter
 {
     public class RomanConverter
     {
-        private static readonly Dictionary<string, int> romanLogic = InitLogic();
+        private readonly Dictionary<string, int> romanLogic;
+
         private List<int> numbers;
         private int total = 0;
 
-        private static Dictionary<string, int> InitLogic()
+
+        public RomanConverter()
         {
-            return new Dictionary<string, int>()
+            romanLogic = new Dictionary<string, int>()
             {
                 {"I",1 },{"V",5 },{"X",10 },{"L",50 }, {"C",100 },{"D",500 }, {"M",1000}
             };
+
         }
+
 
         public int GetArabicNumber(string numberInput)
         {
@@ -49,16 +53,31 @@ namespace RomanNumberConverter
         {
             int currNumber = numbers.Last();
             int prevNumber = 0;
+
+            // Logiikkatarkistus
             if (numbers.Count > 1)
             {
                 prevNumber = numbers[numbers.Count - 2];
 
-                // Logiikkatarkistus
+                // Vain parit IX, IV,XC ja CM mahdollisia
+                if (prevNumber < currNumber)
+                {
+                    List<(int, int)> possiblePairs = new List<(int, int)>
+                        {
+                            (1,10),(1,5),(10,100),(100,1000)
+                        };
+
+                    if (!(possiblePairs.Contains((prevNumber, currNumber)))) throw new Exception();
+                }
+
+
                 if (numbers.Count >= 3)
                 {
                     int prePrev = numbers[numbers.Count - 3];
                     // Esim IIX ei mahdollinen
                     if ((prevNumber < currNumber) && (prePrev < currNumber)) throw new Exception();
+
+                  
 
                     // Sama luku ei voi olla 4x putkeen
                     int successiveHits = 0;
