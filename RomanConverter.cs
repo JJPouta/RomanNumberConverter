@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace RomanNumberConverter
 {
@@ -19,7 +18,25 @@ namespace RomanNumberConverter
             };
         }
 
+        public int GetArabicNumber(string numberInput)
+        {
+            numbers = new List<int>();
+            foreach (char c in numberInput)
+            {
+                try
+                {
+                    int currNumber = ConvertNumber(Char.ToString(c));
+                    numbers.Add(currNumber);
+                    ConversionLogic();
+                }
+                catch (Exception)
+                {
+                    return -1;
+                }
+            }
 
+            return total;
+        }
 
         private int ConvertNumber(string romanNumber)
         {
@@ -28,53 +45,52 @@ namespace RomanNumberConverter
 
         }
 
-        private void Xlogic()
+        private void ConversionLogic()
         {
             int currNumber = numbers.Last();
             int prevNumber = 0;
             if (numbers.Count > 1)
             {
                 prevNumber = numbers[numbers.Count - 2];
+
+                // Logiikkatarkistus
+                if (numbers.Count >= 3)
+                {
+                    int prePrev = numbers[numbers.Count - 3];
+                    // Esim IIX ei mahdollinen
+                    if ((prevNumber < currNumber) && (prePrev < currNumber)) throw new Exception();
+
+                    // Sama luku ei voi olla 4x putkeen
+                    int successiveHits = 0;
+                    int prevNum = 0;
+                    foreach(int n in numbers)
+                    {
+                        if(n == prevNum)
+                        {
+                            successiveHits++;
+                        }
+                        else
+                        {
+                            successiveHits = 0;
+                        }
+                        prevNum = n;
+                        if (successiveHits > 2) throw new Exception();
+                    }
+                }
             }
             
-            // Tarkastetaan formaatti IIX ei mahdollinen
-            if(numbers.Count > 3)
-            {
-
-
-            }
-
             if(currNumber == prevNumber)
             {
-
                 total = total + currNumber;
-
             }
             else if(currNumber > prevNumber)
             {
-
                 total = total - prevNumber + currNumber - prevNumber;
-
             }
             else
             {
                 total = total + currNumber;
-
             }
-
-        }
-
-        public int GetArabicNumber(string numberInput)
-        {
-            numbers = new List<int>();
-            foreach (char c in numberInput)
-            {
-                int currNumber = ConvertNumber(Char.ToString(c));
-                numbers.Add(currNumber);
-                Xlogic();
-            };
-
-            return total;
         }
     }
 }

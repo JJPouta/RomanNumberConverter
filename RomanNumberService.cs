@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 
 namespace RomanNumberConverter
 {
@@ -19,29 +18,19 @@ namespace RomanNumberConverter
                 case "Q":
                     return false;
                 default:
-                    Console.WriteLine("Antamasi roomalaisen numeron int vastine on:");
-                    Console.WriteLine(cnv.GetArabicNumber(res));
-                    Thread.Sleep(2000);
-                    Console.WriteLine("Haluatko muuntaa toisen numeron (K/E)?");
-                    string res2 = Console.ReadLine();
-
-                    switch (res2.ToUpper())
+                    int num = cnv.GetArabicNumber(res);
+                    if(num > 0)
                     {
-                        case "K":
-                            return true;
-                        case "E":
-                            return false;
-                        default:
-                            Console.WriteLine("Tuntematon komento. Palataan alkuun.");
-                            return true;
+                        Console.WriteLine("Antamasi roomalaisen numeron int vastine on:");
+                        Console.WriteLine(num);
+                        return true;
                     }
-
+                    else
+                    {
+                       Console.WriteLine("Numeroformaatissa havaittu virhe. Yritä uudelleen");
+                       return true;
+                    }
             }
-
-            
-         
         }
-        
-
     }
 }

@@ -15,18 +15,12 @@ namespace RomanNumberConverter
 
             while(run)
             {
-
                 RomanNumberService srv = new RomanNumberService();
                 run = srv.RunService(); 
             }
 
-
-
             Thread.Sleep(1000);
             Console.WriteLine("Mukavaa päivänjatkoa!");
-
-
-
         }
     }
 }
