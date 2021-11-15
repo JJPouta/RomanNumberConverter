@@ -64,7 +64,7 @@ namespace RomanNumberConverter
                 {
                     List<(int, int)> possiblePairs = new List<(int, int)>
                         {
-                            (1,10),(1,5),(10,100),(100,1000)
+                            (1,10),(1,5),(10,50),(10,100),(100,500),(100,1000)
                         };
 
                     if (!(possiblePairs.Contains((prevNumber, currNumber)))) throw new Exception();
